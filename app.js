@@ -18,11 +18,11 @@ const keyword = 'cell therapy';
   // Search for profiles 
   const peopleScroller = await client.search.searchPeople({
     keywords: keyword,
-    limit: 20
+    limit: 30
   });
   const list = await peopleScroller.scrollNext();
 
-  // console.log('list', list)
+  console.log('list', list)
 
   Promise.all(list.map((item, index) => {
     return new Promise(async (resolve, reject) => {
@@ -30,18 +30,18 @@ const keyword = 'cell therapy';
       const fullProfile = await client.profile.getProfile({ publicIdentifier: encodedPublicIdentifier });
       const contactInfo = await client.profile.getContactInfo({ publicIdentifier: encodedPublicIdentifier });
       resolve({
-        location: fullProfile.location.countryCode || '',
-        firstName: fullProfile.firstName || '',
-        lastName: fullProfile.lastName || '',
-        language: fullProfile.supportedLocales.language || '',
-        headline: fullProfile.headline || '',
-        publicUrl: `https://www.linkedin.com/in/${fullProfile.publicIdentifier}` || '',
-        company: fullProfile.company?.name || '',
-        email: contactInfo.email || '',
-        phoneNumbers: contactInfo.phoneNumbers || '',
-        address: contactInfo.address || '',
-        weChatContactInfo: contactInfo.weChatContactInfo || '',
-        primaryTwitterHandle: contactInfo.primaryTwitterHandle || ''
+        location: fullProfile?.location?.countryCode || '',
+        firstName: fullProfile?.firstName || '',
+        lastName: fullProfile?.lastName || '',
+        language: fullProfile?.supportedLocales?.language || '',
+        headline: fullProfile?.headline || '',
+        publicUrl: `https://www.linkedin.com/in/${fullProfile?.publicIdentifier}` || '',
+        company: fullProfile?.company?.name || '',
+        email: contactInfo?.email || '',
+        phoneNumbers: contactInfo?.phoneNumbers || '',
+        address: contactInfo?.address || '',
+        weChatContactInfo: contactInfo?.weChatContactInfo || '',
+        primaryTwitterHandle: contactInfo?.primaryTwitterHandle || ''
       })
     })
   })).then(data => {
