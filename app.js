@@ -22,8 +22,6 @@ const keyword = 'cell therapy';
   });
   const list = await peopleScroller.scrollNext();
 
-  console.log('list', list)
-
   Promise.all(list.map((item, index) => {
     return new Promise(async (resolve, reject) => {
       const encodedPublicIdentifier = encodeURIComponent(item.profile.publicIdentifier);
